@@ -1,0 +1,292 @@
+﻿
+@model List<EJournalManager.Entity.VmUserModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .flip-content th { color: #4f8edc; }
+</style>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $.fn.serializeObj = function() {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function() {
+                if (o[this.name] !== undefined) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+
+        //WebGridPaging
+        function updateGrid(e) {
+            e.preventDefault();
+            var url = $(this).attr('href');
+            var grid = $(this).parents('.ajaxGrid');
+            var id = grid.attr('id');
+
+            var data = $("#frmSearch").serializeObj();
+
+            grid.load(url + ' #' + id, data);
+        };
+
+        $('.ajaxGrid table thead tr a').live('click', updateGrid);
+        $('.ajaxGrid table tfoot tr a').live('click', updateGrid);
+
+    });
+
+    function fn_Searchsucess(data) {
+        $("#grid").html(data);
+        jQuery.fn.onlyText = function() {
+            return this
+                .clone()
+                .children()
+                .remove()
+                .end()
+                .text();
+        };
+
+        function getFooterHtml() {
+            var text = $("#grid table tfoot tr.paging td").onlyText().trim();
+
+            if (text != undefined && text != null) {
+
+                // //alert(text + " len: " + text.length);
+                if (text.length > 0) {
+                    var html = "<b>" + text.trim() + "</b>"; //style=color:#FF5811;font-weight:bold;
+                    return html;
+                }
+            }
+            return null;
+        }
+
+        String.prototype.replaceBetween = function(start, end, what) {
+            return this.substring(0, start) + what + this.substring(end);
+        };
+
+        $("div.ajaxGrid").ajaxStop(function() {
+            var obj = $("#grid table tfoot tr.paging td").html();
+
+            if (obj != undefined || obj != null) {
+                var NumberText = parseInt($("#grid table tfoot tr.paging td").onlyText());
+                var NumberLength = NumberText.toString().length;
+                var index = $("#grid table tfoot tr.paging td").html().indexOf(NumberText);
+                var FooterHTML = getFooterHtml();
+                if (FooterHTML != null) {
+                    $("#grid table tfoot tr.paging td").html($("#grid table tfoot tr.paging td").html().replaceBetween(index, index + NumberLength, FooterHTML));
+                }
+            }
+        });
+        //===================================================================
+    }
+
+    function sendPassword(userid) {
+        var SubDomain = $("#SubDomain").val();
+        $.ajax({
+            type: 'POST',
+            url: SubDomain + "UserManagement/ForgotPassword?UserId=" + userid,
+            async: false,
+            dataType: "json",
+            success: function(data) {
+                if (data == "Success") {
+                    alert("Your password has been mailed to you!!");
+
+                }
+
+            }
+        });
+    }
+</script>
+<div id="page-content">
+    <div id="wrap">
+        <div id="page-heading">
+
+            <ol class="breadcrumb">
+                <li><a href="#">Users</a></li>
+                <li>Manage Users</li>
+                <!--<li class="active">Horizontal Navigation 1</li>-->
+            </ol>
+
+            <h1>Manage Users</h1>
+            <div class="options">
+                <div class="btn-toolbar">
+                    <div class="btn-group hidden-xs">
+                        <a href='#' class="btn btn-default dropdown-toggle" data-toggle='dropdown'><i class="fa fa-cloud-download"></i><span class="hidden-sm">Export as  </span><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Content("~/UserManagement/ExportToText")">Text File (*.txt)</a></li>
+                            <li><a href="@Url.Content("~/UserManagement/ExportUsersListToExcel")">Excel File (*.xlsx)</a></li>
+                            <li><a href="@Url.Content("~/UserManagement/ExportUsersListToPDF")">PDF File (*.pdf)</a></li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn btn-default"><i class="fa fa-cog"></i></a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <i class="fa fa-edit"></i>Users List
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-toolbar">
+                                <div class="row search-form-default">
+                                    @using (Ajax.BeginForm("SearchUser", "UserManagement", null, new AjaxOptions {OnSuccess = "fn_Searchsucess", HttpMethod = "Post"}, new {id = "frmSearch", @class = "form-horizontal row-border"}))
+                                    {
+                                        <div class="form-body">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Fisrt Name</label>
+                                                        <div class="col-md-9">
+                                                            @Html.TextBox("FirstName", null, new {@class = "form-control"})
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Last Name</label>
+                                                        <div class="col-md-9">
+                                                            @Html.TextBox("LastName", null, new {@class = "form-control"})
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Phone Number</label>
+                                                        <div class="col-md-9">
+                                                            @Html.TextBox("PhoneNumber", null, new {@class = "form-control"})
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button class="btn green">Search</button>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Email</label>
+                                                        <div class="col-md-9">
+                                                            @Html.TextBox("Email", null, new {@class = "form-control"})
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Employee Id</label>
+                                                        <div class="col-md-9">
+                                                            @Html.TextBox("EmployeeId", null, new {@class = "form-control"})
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Role</label>
+                                                        <div class="col-md-9">
+                                                            @Html.DropDownList("Role", (IEnumerable<SelectListItem>) ViewBag.RoleList, "Select", new {@class = "form-control"})
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Branch</label>
+                                                        <div class="col-md-9">
+                                                            @Html.DropDownList("Branch", (IEnumerable<SelectListItem>) ViewBag.BranchList, "Select", new {@class = "form-control"})
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Status</label>
+                                                        <div class="col-md-9">
+                                                            <select name="IsActive" id="IsActive" class="form-control">
+                                                                <option value="2">Select</option>
+                                                                <option value="1">Active</option>
+                                                                <option value="0">Inactive</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    }
+                                </div>
+                                <br>
+                                <br>
+                                <div id="grid" class="ajaxGrid table-responsive ">
+                                    @if (Model.Count > 0 && Model != null)
+                                    {
+                                        var grid = new WebGrid(null, defaultSort: "Name", rowsPerPage: 15, sortFieldName: "SortColumn");
+                                        grid.Bind(Model, rowCount: Convert.ToInt32(Model[0].TotalCount), autoSortAndPage: false);
+                                        grid.Pager(WebGridPagerModes.All, "<<First ", lastText: "Last>>", numericLinksCount: 2);
+
+                                        var gridColumns = new List<WebGridColumn>();
+                                        gridColumns.Add(grid.Column("FirstName", "First Name", style: "col16", canSort: false));
+                                        gridColumns.Add(grid.Column("LastName", "Last Name", style: "col8", canSort: false));
+                                        gridColumns.Add(grid.Column("BranchName", "Branch", style: "col8", canSort: false));
+                                        gridColumns.Add(grid.Column("RoleName", "Role", style: "col21", canSort: false));
+                                        gridColumns.Add(grid.Column("Status", "Status", style: "col8", canSort: false));
+                                        gridColumns.Add(grid.Column("EmployeeId", "Employee Id", style: "col8", canSort: false));
+                                        gridColumns.Add(grid.Column("Email", "Email", style: "col15", canSort: false));
+                                        gridColumns.Add(grid.Column("PhoneNumber", "Phone Number", style: "col21", canSort: false));
+                                        gridColumns.Add(grid.Column("UserSatus", "User Satus", style: "col8", canSort: false));
+                                        gridColumns.Add(grid.Column(header: "", style: "edit", format:
+                                            @<text>
+                                                 <div class="btn_box edit_section">
+                                                     @Html.ActionLink("Manage", "EditUser", "UserManagement", new {UserId = item.Id.ToString()}, null)
+                                                     @*@Html.ActionLink("Manage", null, null, new { href = "/UserManagement/EditUser?UserId=" + item.Id.ToString() })*@
+                                                 </div>
+                                             </text>));
+                                        gridColumns.Add(grid.Column(header: "", style: "edit", format:
+                                            @<text>
+                                                 <div class="btn_box edit_section">
+                                                     <a href="javascript:void(0);" onclick=" sendPassword(@item.Id.ToString()) ">Password Reset</a>
+                                                 </div>
+                                             </text>));
+
+
+                                        @grid.GetHtml("table table-bordered table-striped", "flip-content", "paging", htmlAttributes: new {id = "documentation_table"},
+                                            alternatingRowStyle: "alt", columns: grid.Columns(gridColumns.ToArray()),
+                                            mode: WebGridPagerModes.FirstLast | WebGridPagerModes.NextPrevious | WebGridPagerModes.All, numericLinksCount: 2, firstText: "First",
+                                            lastText: "Last", nextText: "Next>", previousText: "<Previous")
+                                    }
+
+                                    else
+                                    {
+                                        <div class="norecord">No Record Found</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

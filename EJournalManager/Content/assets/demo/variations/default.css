@@ -1,0 +1,14 @@
+.right{float:right; clear:right;}
+.left{float:left; clear:left;}
+.eachCell{width:5.24848484848484%; text-align:center; float:left;}
+.tiles-primary img { background:#54b453;}
+.tiles-danger img { background:#FF0000;}
+.shortcut-tiles.tiles-danger .tiles-heading, .shortcut-tiles.tiles-danger .tiles-body, .shortcut-tiles.tiles-danger .tiles-footer{background:#000;}
+.tiles-indigo{ background:#f1c40f;}
+.shortcut-tiles.tiles-indigo .tiles-heading,.shortcut-tiles.tiles-indigo .tiles-body,.shortcut-tiles.tiles-indigo .tiles-footer{background:#000;}
+
+.tiles-sky {background:#52b4e8;}
+.shortcut-tiles.tiles-sky .tiles-heading,.shortcut-tiles.tiles-sky .tiles-body,.shortcut-tiles.tiles-sky .tiles-footer{background:#000;}
+
+.tiles-closed img,.tiles-footer
+{ background:#000;}

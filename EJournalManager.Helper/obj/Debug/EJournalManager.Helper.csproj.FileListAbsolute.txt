@@ -1,0 +1,10 @@
+E:\Aakash\EJournalManager\EJournalManager.Helper\bin\Debug\EJournalManager.Helper.dll
+E:\Aakash\EJournalManager\EJournalManager.Helper\bin\Debug\EJournalManager.Helper.pdb
+E:\Aakash\EJournalManager\EJournalManager.Helper\obj\Debug\EJournalManager.Helper.dll
+E:\Aakash\EJournalManager\EJournalManager.Helper\obj\Debug\EJournalManager.Helper.pdb
+E:\Aakash\EJournalManager\EJournalManager.Helper\obj\Debug\EJournalManager.Helper.csprojResolveAssemblyReference.cache
+F:\MyProjects\Project\EJournalManager\EJournalManager.Helper\bin\Debug\EJournalManager.Helper.dll
+F:\MyProjects\Project\EJournalManager\EJournalManager.Helper\bin\Debug\EJournalManager.Helper.pdb
+F:\MyProjects\Project\EJournalManager\EJournalManager.Helper\obj\Debug\EJournalManager.Helper.csprojResolveAssemblyReference.cache
+F:\MyProjects\Project\EJournalManager\EJournalManager.Helper\obj\Debug\EJournalManager.Helper.dll
+F:\MyProjects\Project\EJournalManager\EJournalManager.Helper\obj\Debug\EJournalManager.Helper.pdb

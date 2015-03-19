@@ -1,0 +1,91 @@
+﻿@using EJournalManager.Entity
+@model List<TaskModel>
+
+@{
+    ViewBag.Title = "GetAllTasks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="post">
+    <div class="row post">
+        @if (Model.Any())
+        {
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                        <table class="table table-striped table-bordered table-hover dataTable no-footer">
+                            <thead>
+                                <tr role="row">
+                                    <th tabindex="0" rowspan="1" colspan="1" style="width: 26.9%;">
+                                        Task Name
+                                    </th>
+                                    <th class="" tabindex="0" rowspan="1" colspan="1" style="width: 22.2%;">
+                                        Source
+                                    </th>
+                                    <th tabindex="0" rowspan="1" colspan="1" style="width: 12.6%;">
+                                        Destination
+                                    </th>
+                                    <th tabindex="0" rowspan="1" colspan="1" style="width: 12.6%;">
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (TaskModel item in Model)
+                                {
+                                    <tr id="@item.TaskId">
+                                        <td style="text-align:left;">
+                                            @Html.Raw(item.TaskName)
+                                        </td>
+                                        <td style="text-align:center;">
+                                            @Html.DisplayFor(m => item.Source)
+                                        </td>
+                                        <td style="text-align:center;">
+                                            @Html.DisplayFor(m => item.Destination)
+                                        </td>
+                                        <td style="text-align:center;">
+                                            <button type="button" onclick="syncTask(@item.TaskId)">Sync</button>
+                                            @*<span class="OperationsIconsSyncTask" id="btnSync" data-toggle="modal" data-target=".SyncTasksModal" data-placement="top" title="Sync Task" onclick='AssignTask(@item.TaskId) ' style="cursor: pointer">
+                                                <i class="glyphicon glyphicon-paperclip"></i>
+                                            </span>*@
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <td>
+                        No Data Found !!
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+<script>
+    function syncTask(taskId) {
+        debugger;
+        $.ajax({
+            type: "Post",
+            url: "/Synchronizer/SyncTask",
+            success: function (data) {
+                alert("Sync successful");
+                /*$('#LoadingImageDiv').hide();
+                $('#Grid').children().children().remove();
+                $('#Grid').children().append(data);
+                $('#loading-wrapper').empty();*/
+            },
+            error: function (error) {
+                alert("something went wrong");
+            }
+        });
+    }
+
+</script>

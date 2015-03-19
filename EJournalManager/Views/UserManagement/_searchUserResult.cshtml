@@ -1,0 +1,52 @@
+﻿
+@using EJournalManager.Helper
+@model List<EJournalManager.Entity.VmUserModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<style>
+    .flip-content th { color: #4f8edc; }
+</style>
+<div id="datagrid" class="ajaxGrid table-responsive ">
+    @if (Model.Count > 0 && Model != null)
+    {
+        var grid = new WebGrid(null, defaultSort: "Name", rowsPerPage: 15, sortFieldName: "SortColumn");
+        grid.Bind(Model, rowCount: Convert.ToInt32(Model[0].TotalCount), autoSortAndPage: false);
+        grid.Pager(WebGridPagerModes.All, "<<First ", lastText: "Last>>", numericLinksCount: 2);
+
+        var gridColumns = new List<WebGridColumn>();
+        gridColumns.Add(grid.Column("FirstName", "First Name", style: "col16", canSort: false));
+        gridColumns.Add(grid.Column("LastName", "Last Name", style: "col8", canSort: false));
+        gridColumns.Add(grid.Column("BranchName", "Branch", style: "col8", canSort: false));
+        gridColumns.Add(grid.Column("RoleName", "Role", style: "col21", canSort: false));
+        gridColumns.Add(grid.Column("Status", "Status", style: "col8", canSort: false));
+        gridColumns.Add(grid.Column("EmployeeId", "Employee Id", style: "col8", canSort: false));
+        gridColumns.Add(grid.Column("Email", "Email", style: "col15", canSort: false));
+        gridColumns.Add(grid.Column("PhoneNumber", "Phone Number", style: "col21", canSort: false));
+        gridColumns.Add(grid.Column("UserSatus", "User Satus", style: "col8", canSort: false));
+        gridColumns.Add(grid.Column(header: "", style: "edit", format:
+            @<text>
+                 <div class="btn_box edit_section">
+                     @Html.ActionLink("Manage", null, null, new {href = "/UserManagement/EditUser?UserId=" + AESEncryption.Encrypt((item.Id.ToString()))})
+                 </div>
+             </text>));
+        gridColumns.Add(grid.Column(header: "", style: "edit", format:
+            @<text>
+                 <div class="btn_box edit_section">
+                     <a href="javascript:void(0);" onclick="sendPassword(@item.Id.ToString()) ">Password Reset</a>                                        
+                 </div>
+             </text>));
+
+        @grid.GetHtml("table table-bordered table-striped", "flip-content", "paging", htmlAttributes: new {id = "documentation_table"},
+            alternatingRowStyle: "alt", columns: grid.Columns(gridColumns.ToArray()),
+            mode: WebGridPagerModes.FirstLast | WebGridPagerModes.NextPrevious | WebGridPagerModes.All, numericLinksCount: 2, firstText: "First",
+            lastText: "Last", nextText: "Next>", previousText: "<Previous")
+    }
+
+    else
+    {
+        <div class="norecord">No Record Found</div>
+    }
+</div>

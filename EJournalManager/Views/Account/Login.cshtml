@@ -1,0 +1,103 @@
+﻿@model EJournalManager.Entity.User
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <!-- Mirrored from redteamux.com/avant/extras-login.php by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Jul 2014 08:31:43 GMT -->
+    <head>
+        <meta charset="utf-8">
+        <title>EJournal Manager | Login User</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- <link href="assets/less/styles.less" rel="stylesheet/less" media="all"> -->
+        <link rel="stylesheet" href="~/assets/css/style.css">
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
+
+        <!-- <script type="text/javascript" src="assets/js/less.js"></script> -->
+    </head>
+    <body class="focusedform">
+        @using (Html.BeginForm("Login", "Account", new {ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", @style = "margin-bottom: 0px !important;"}))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <div class="verticalcenter">
+                <div class="navbar-primary">
+                    <div class="heri-logo">
+                        <img src="~/assets/img/logo.jpg">
+                    </div>
+                    <div class="navbar-primary-image">
+                        <img src="~/assets/img/login-atm.png">
+                    </div>
+                    <div class="heri-logo-last"></div>
+                </div>
+                <div class="panel">
+                    <div id="content" class="fade-in l-table">
+                        <div id="login-wrapper" class="l-table-row">
+                            <div class="l-table-cell">
+                                <section class="login-modal">
+                                    <div class="login-modal-title">
+                                        <div class="login-modal-title-text">
+                                            Sign In
+                                        </div>
+                                    </div>
+                                    <div class="login-modal-content">
+                                        <div class="field email-field fade-label" style="position: relative;">
+
+                                            @Html.TextBoxFor(m => m.UserName, new {@class = "text", style = "position:relative;"})
+
+
+                                        </div>
+                                        <div class="message-box-error-wrapper">
+                                            <div class="message-box-error">
+                                                @Html.ValidationMessageFor(m => m.UserName)
+                                                <br />
+                                                @Html.ValidationMessageFor(m => m.Password)
+                                            </div>
+                                        </div>
+
+                                        <div class="field password-field fade-label">
+                                            @Html.PasswordFor(m => m.Password, new {@class = "text", style = "position:relative;"})
+
+                                        </div>
+                                        <div>
+                                            @Html.CheckBoxFor(model => model.RememberMe, new {@style = "margin-bottom: 20px;"})
+                                            @Html.LabelFor(model => model.RememberMe)
+                                        </div>
+                                        <div>
+                                            @if (!ViewData.ModelState.IsValid)
+                                            {
+                                                <span class="field-validation-error">
+                                                    @ViewData.ModelState["UsrnamePassword"].Errors[0].ErrorMessage
+                                                </span>
+                                            }
+
+
+                                        </div>
+                                        <div class="footer">
+                                            <button type="submit" class="btn btn-blue track-event">
+                                                <span class="button-text">Sign In</span>
+                                            </button>
+                                        </div>
+
+                                        <a class="secondary-footer-link" href="#">Forgot your password?</a>
+                                    </div>
+                                </section>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </body>
+
+    <!-- Mirrored from redteamux.com/avant/extras-login.php by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Jul 2014 08:31:43 GMT -->
+</html>

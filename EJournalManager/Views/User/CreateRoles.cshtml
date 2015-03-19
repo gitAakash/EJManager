@@ -1,0 +1,112 @@
+﻿@model EJournalManager.Entity.UserRole
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btn_submit").click(function () {
+            var SubDomain = $("#SubDomain").val();
+            $.ajax({
+                url: SubDomain + "User/checkUserRoleExists",
+                data: { name: $("#Name").val() },
+                type: "POST",
+                error: function (xhr) {
+                    //alert("Something seems Wrong");
+                },
+                success: function (data) {
+                    if (data == false) {
+                        $("#message").text("Role with this name already exists");
+                    }
+                    else {
+                        $("#frm_createRole").submit();
+                    }
+                }
+            });
+        });
+    });
+
+</script>
+
+<div id="page-content">
+    <div id="wrap">
+        <div id="page-heading">
+
+            <ol class="breadcrumb">
+                <li><a href="#">Roles</a></li>
+                <li>Add Role</li>
+                <!--<li class="active">Horizontal Navigation 1</li>-->
+            </ol>
+
+            <h1>Add Role</h1>
+            <div class="options">
+                <div class="btn-toolbar">
+                    <div class="btn-group hidden-xs">
+                        <a href='#' class="btn btn-default dropdown-toggle" data-toggle='dropdown'><i class="fa fa-cloud-download"></i><span class="hidden-sm"></span></a><a href="#"></a>
+                    </div>
+                    <a href="#" class="btn btn-default"><i class="fa fa-cog"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4>Create Role</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div id="message">
+                                    @if (ViewBag.Message != null)
+                                    {
+                                        @ViewBag.Message
+                                    }
+                                </div>
+                                @using (Html.BeginForm("CreateRoles", "User", FormMethod.Post, new { @id = "frm_createRole" }))
+                                {
+                                    @Html.ValidationSummary(true)
+                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                        @Html.LabelFor(model => model.Name)
+                                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Name)
+
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                        @Html.LabelFor(model => model.RoleCode)
+                                        @Html.TextBoxFor(model => model.RoleCode, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.RoleCode)
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                        @Html.LabelFor(model => model.IsBranchRole)
+                                        @*@Html.EditorFor(model => model.IsBranchRole)*@
+
+                                        @Html.RadioButtonFor(model => model.IsBranchRole, "true")Yes
+                                        @Html.RadioButtonFor(model => model.IsBranchRole, "false")No
+                                        @Html.ValidationMessageFor(model => model.IsBranchRole)
+                                    </div>
+
+                                    <div class="col-sm-6 col-sm-offset-3">
+                                        <div class="btn-toolbar">
+                                            @*<input type="submit" class="btn-primary btn" value="Submit" />*@
+                                            <input type="button" id="btn_submit" class="btn-primary btn" value="Submit" />
+
+                                        </div>
+                                    </div>
+                                }
+                                </>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+        <!-- #wrap -->
+    </div>
+</div>
+<!-- page-content -->

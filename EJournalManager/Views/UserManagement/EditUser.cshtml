@@ -1,0 +1,153 @@
+﻿@model EJournalManager.Entity.UserModel
+@{
+    ViewBag.Title = "Create User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<div id="page-content">
+    <div id="wrap">
+        <div id="page-heading">
+
+            <ol class="breadcrumb">
+                <li><a href="#">Users</a></li>
+                <li>Edit User</li>
+                <!--<li class="active">Horizontal Navigation 1</li>-->
+            </ol>
+
+            <h1>Edit User</h1>
+            <div class="options">
+                <div class="btn-toolbar">
+                    <div class="btn-group hidden-xs">
+                        <a href='#' class="btn btn-default dropdown-toggle" data-toggle='dropdown'><i class="fa fa-cloud-download"></i><span class="hidden-sm"></span></a><a href="#"></a>
+                    </div>
+                    <a href="#" class="btn btn-default"><i class="fa fa-cog"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4>Edit User</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                @using (Html.BeginForm("EditUser", "UserManagement", FormMethod.Post, new { @id = "frm_editUser" }))
+                                {
+
+                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                        @Html.LabelFor(model => model.FirstName)
+                                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.FirstName)
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                        @Html.LabelFor(model => model.LastName)
+                                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.LastName)
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                        @Html.LabelFor(model => model.Username)
+                                        @Html.TextBoxFor(model => model.Username, new { @class = "form-control", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(model => model.Username)
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                        @Html.LabelFor(model => model.Password)
+                                        @Html.TextBoxFor(model => model.Password, new { @readonly = "readonly", @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Password)
+
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                        @Html.LabelFor(model => model.Role)
+                                        @Html.DropDownListFor(model => model.RoleId, Model.RoleList, "Please select", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Role)
+                                        @* @Html.HiddenFor(model => model.RoleId)*@
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                        @Html.LabelFor(model => model.Branch)
+                                        @Html.DropDownListFor(model => model.BranchId, Model.BranchList, "Please select", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Branch)
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                        @Html.LabelFor(model => model.RegionName)
+                                        @Html.TextBoxFor(model => model.RegionName, new { @class = "form-control", @readonly = "readonly" })
+
+                                        @* @Html.DropDownListFor(model => model.RegionId, Model.RegionList, "Please select", new { @class = "form-control" })*@
+                                        @Html.ValidationMessageFor(model => model.RegionName)
+                                        @Html.HiddenFor(model => model.RegionId)
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                        @Html.LabelFor(model => model.IsActive, "Active")
+                                        @Html.EditorFor(model => model.IsActive, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.IsActive)
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                        @Html.Label("Status")
+                                        @Html.DropDownList("UserStatus", new List<SelectListItem>
+                                       {
+                                        new SelectListItem{ Text="On-Site", Value = "1" },
+                                        new SelectListItem{ Text="Off-Site", Value = "0" }
+
+                                        }, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.UserStatus)
+
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                        @Html.LabelFor(model => model.EmployeeId)
+                                        @Html.TextBoxFor(model => model.EmployeeId, new { @class = "form-control", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(model => model.EmployeeId)
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                        @Html.LabelFor(model => model.Email)
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Email)
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                        @Html.LabelFor(model => model.PhoneNumber)
+                                        @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.PhoneNumber)
+                                        @Html.HiddenFor(model => model.Id)
+                                    </div>
+                                    <div class="col-sm-6 col-sm-offset-3">
+                                        <div class="btn-toolbar">
+                                            <input type="submit" id="btnSubmit" value="Submit" class="btn-primary btn" />
+                                            <input type="button" id="btnCancle" value="Cancel" class="btn-default btn" />
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- #wrap -->
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var SubDomain = $("#SubDomain").val();
+        $('#btnCancle').click(function (e) {
+            location.href = '@Url.Content("~/UserManagement/Index")';
+        });
+
+        $('#BranchId').change(function (e) {
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: SubDomain + "User/GetRegionName",
+                data: { BranchName: $('#BranchId option:selected').text() },
+                success: function (data) {
+                    $('#RegionName').val(data.Name);
+                    $("#RegionId").val(data.Id);
+                }
+            });
+        });
+
+
+    });
+</script>

@@ -1,0 +1,285 @@
+﻿@model EJournalManager.Entity.TaskModel
+@{
+    ViewBag.Title = "NewTask";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Content/assets/plugins/form-jasnyupload/fileinput.min.js"></script>
+<div id="page-content">
+    <div id='wrap'>
+        <div id="page-heading">
+            <ol class="breadcrumb">
+                <li><a href="index.html">Journal</a></li>
+                <li class="active">Add Task</li>
+            </ol>
+
+            <h1>Config</h1>
+
+            <!--<div class="options">
+                    <div class="btn-toolbar">
+                        <div class="btn-group hidden-xs">
+                            <a href='#' class="btn btn-default dropdown-toggle" data-toggle='dropdown'><i class="fa fa-cloud-download"></i><span class="hidden-sm"> Export as  </span><span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Text File (*.txt)</a></li>
+                                <li><a href="#">Excel File (*.xlsx)</a></li>
+                                <li><a href="#">PDF File (*.pdf)</a></li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn btn-default"><i class="fa fa-cog"></i></a>
+                    </div>
+                </div>-->
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#Config1" data-toggle="tab">Add Task</a>
+                                </li>
+                                <li class="">
+                                    <a href="#Config2" data-toggle="tab">Config 2</a>
+                                </li>
+                                <li class="">
+                                    <a href="#Config3" data-toggle="tab">Config 3</a>
+                                </li>
+                                <li class="">
+                                    <a href="#Config4" data-toggle="tab">Config 4</a>
+                                </li>
+                                <li class="">
+                                    <a href="#Config5" data-toggle="tab">Config 5</a>
+                                </li>
+                                <li class="">
+                                    <a href="#Config6" data-toggle="tab">Config 6</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="panel-body">
+                            <div class="tab-content">
+                                <div class="tab-pane  form-horizontal active" id="Config1">
+                                    <br>
+                                    <div>
+                                        @using (Html.BeginForm("NewTask", "Task", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                        {
+                                            <div class="form-group">
+                                                <label for="txtTaskName" class="col-sm-1 control-label">Task Name</label>
+                                                <div class="col-sm-11">
+                                                    <input type="text" class="form-control" id="txtTaskName" name="taskName" placeholder="Enter Task Name Here">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="sourceA" class="col-sm-1 control-label">File A</label>
+                                                <div class="col-sm-11">
+                                                    <input type="text" class="form-control" id="txtsourceA" name="Source" placeholder="Enter Source Here">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="sourceB" class="col-sm-1 control-label">File B</label>
+                                                <div class="col-sm-11">
+                                                    <input type="text" class="form-control" id="txtsourceB" name="Destination" placeholder="Enter Destination Here">
+                                                </div>
+                                            </div>
+                                            @*<input id="sourceF" type="file" name="source" multiple webkitdirectory />
+                                            <input id="destinationF" type="file" name="destination" multiple webkitdirectory />*@
+                                           @* <div class="form-group">
+                                                <label class="col-sm-1 control-label">File Dir. A</label>
+                                                <div class="col-sm-9">
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="input-group">
+                                                            <div class="form-control uneditable-input" data-trigger="fileinput">
+                                                                <i class="fa fa-file fileinput-exists"></i>&nbsp;<span class="fileinput-filename"></span>
+                                                            </div>
+                                                            <span class="input-group-addon btn btn-default btn-file">
+                                                                <span class="fileinput-new">Select file</span>
+                                                                <span class="fileinput-exists">Change</span>
+
+                                                            </span>
+                                                            <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-1 control-label">File Dir. B</label>
+                                                <div class="col-sm-9">
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="input-group">
+                                                            <div class="form-control uneditable-input" data-trigger="fileinput">
+                                                                <i class="fa fa-file fileinput-exists"></i>&nbsp;<span class="fileinput-filename"></span>
+                                                            </div>
+                                                            <span class="input-group-addon btn btn-default btn-file">
+                                                                <span class="fileinput-new">Select file</span>
+                                                                <span class="fileinput-exists">Change</span>
+
+                                                            </span>
+                                                            <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                            <div class="form-group container">
+
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-sm-offset-3">
+                                                        <div class="btn-toolbar">
+                                                            <button class="btn-success btn" type="submit">Submit</button>
+                                                            <button class="btn-default btn">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        }
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="Config2">Lorem 2...</div>
+                                <div class="tab-pane" id="Config3">Lorem 3...</div>
+                                <div class="tab-pane" id="Config4">Lorem 4...</div>
+                                <div class="tab-pane" id="Config5">Lorem 5...</div>
+                                <div class="tab-pane" id="Config6">Lorem 6...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                @* <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a href="#Config1" data-toggle="tab">Config 1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#Config2" data-toggle="tab">Config 2</a>
+                                    </li>
+                                    <li>
+                                        <a href="#Config3" data-toggle="tab">Config 3</a>
+                                    </li>
+                                    <li>
+                                        <a href="#Config4" data-toggle="tab">Config 4</a>
+                                    </li>
+                                    <li>
+                                        <a href="#Config5" data-toggle="tab">Config 5</a>
+                                    </li>
+                                    <li>
+                                        <a href="#Config6" data-toggle="tab">Config 6</a>
+                                    </li>
+                                </ul>
+                                $1$</h4>#1#
+
+                            </div>
+                            <div class="panel-body">
+                                <div class="tab-content">
+                                    <div class="tab-pane active  form-horizontal" id="Config1">
+                                        <br />
+                                        <div>
+                                            @Html.BeginForm("NewTask", "Synchronizer", FormMethod.Post)
+                                            {
+                                            <div class="form-group">
+                                                <label for="txtTaskName" class="col-sm-1 control-label">Task Name</label>
+                                                <div class="col-sm-11">
+                                                    <input type="text" class="form-control" id="txtTaskName" placeholder="Enter Task Name Here">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-1 control-label">File Dir. A</label>
+                                                <div class="col-sm-9">
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="input-group">
+                                                            <div class="form-control uneditable-input" data-trigger="fileinput">
+                                                                <i class="fa fa-file fileinput-exists"></i>&nbsp;<span class="fileinput-filename"></span>
+                                                            </div>
+                                                            <span class="input-group-addon btn btn-default btn-file">
+                                                                <span class="fileinput-new">Select file</span>
+                                                                <span class="fileinput-exists">Change</span>
+                                                                <input type="file" name="...">
+                                                            </span>
+                                                            <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-1 control-label">File Dir. B</label>
+                                                <div class="col-sm-9">
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="input-group">
+                                                            <div class="form-control uneditable-input" data-trigger="fileinput">
+                                                                <i class="fa fa-file fileinput-exists"></i>&nbsp;<span class="fileinput-filename"></span>
+                                                            </div>
+                                                            <span class="input-group-addon btn btn-default btn-file">
+                                                                <span class="fileinput-new">Select file</span>
+                                                                <span class="fileinput-exists">Change</span>
+                                                                <input id="btnSelectFileB" type="file" name="...">
+                                                            </span>
+                                                            <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            }
+                                        </div>
+
+                                        <div>
+
+                                            <div class="tab-pane" id="Config2">Lorem 2...</div>
+                                            <div class="tab-pane" id="Config3">Lorem 3...</div>
+                                            <div class="tab-pane" id="Config4">Lorem 4...</div>
+                                            <div class="tab-pane" id="Config5">Lorem 5...</div>
+                                            <div class="tab-pane" id="Config6">Lorem 6...</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- container -->
+                    <div class="container">
+
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <div class="btn-toolbar">
+                                    <button class="btn-success btn">Submit</button>
+                                    <button class="btn-default btn">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>*@
+            </div> <!--wrap -->
+        </div> <!-- page-content -->
+
+
+
+    </div> <!-- page-container -->
+    <!--
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+        <script>!window.jQuery && document.write(unescape('%3Cscript src="assets/js/jquery-1.10.2.min.js"%3E%3C/script%3E'))</script>
+        <script type="text/javascript">!window.jQuery.ui && document.write(unescape('%3Cscript src="assets/js/jqueryui-1.10.3.min.js'))</script>
+        -->
+</div>
+
+
+<script>
+
+    function fileName() {
+        debugger;
+        var input = document.getElementById("sourceF");
+        var fReader = new FileReader();
+        debugger;
+        fReader.readAsDataURL(input.files[0]);
+        fReader.onloadend = function (event) {
+            debugger;
+            var img = document.getElementById("yourImgTag");
+
+            img.src = event.target.result;
+        }
+    }
+</script>
